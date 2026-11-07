@@ -1,0 +1,6 @@
+{
+  "rewrites": [{ "source": "/((?!assets/|config/|demo/|favicon).*)", "destination": "/index.html" }],
+  "headers": [
+    { "source": "/config/(.*)", "headers": [{ "key": "Cache-Control", "value": "no-cache" }] }
+  ]
+}

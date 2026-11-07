@@ -1,0 +1,8 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[[headers]]
+  for = "/config/*"
+  [headers.values]
+    Cache-Control = "no-cache"
