@@ -20,6 +20,7 @@ const AssignPage = lazy(() => import("@/pages/admin/AssignPage").then((m) => ({ 
 const QrPage = lazy(() => import("@/pages/admin/QrPage").then((m) => ({ default: m.QrPage })));
 const EzvizPage = lazy(() => import("@/pages/admin/EzvizPage").then((m) => ({ default: m.EzvizPage })));
 const StatusPage = lazy(() => import("@/pages/admin/StatusPage").then((m) => ({ default: m.StatusPage })));
+const ImouPage = lazy(() => import("@/pages/admin/ImouPage").then((m) => ({ default: m.ImouPage })));
 
 const S = ({ children }: { children: ReactNode }) => (
   <Suspense
@@ -69,6 +70,7 @@ export const router = createBrowserRouter([
       { path: "qr", element: <S><QrPage /></S> },
       { path: "ezviz", element: <S><EzvizPage /></S> },
       { path: "status", element: <S><StatusPage /></S> },
+      { path: "imou", element: <S><ImouPage /></S> },
     ],
   },
   { path: "*", element: <NotFound /> },

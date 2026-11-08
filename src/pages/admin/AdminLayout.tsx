@@ -10,6 +10,7 @@ const NAV = [
   { to: "/admin/qr", label: "Mã QR" },
   { to: "/admin/ezviz", label: "EZVIZ" },
   { to: "/admin/status", label: "Trạng thái" },
+  { to: "/admin/imou", label: "Thử IMOU" },
 ];
 
 export function AdminLayout() {

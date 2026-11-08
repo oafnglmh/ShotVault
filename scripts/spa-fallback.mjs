@@ -8,7 +8,7 @@ import { dirname, join } from "node:path";
 const dist = "dist";
 const index = join(dist, "index.html");
 
-const ADMIN = ["", "tables", "cameras", "assign", "qr", "ezviz", "status"];
+const ADMIN = ["", "tables", "cameras", "assign", "qr", "ezviz", "status", "imou"];
 const TABLE = ["", "live", "recordings", "editor"];
 
 let tableIds = [];

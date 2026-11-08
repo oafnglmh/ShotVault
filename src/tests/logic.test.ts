@@ -161,3 +161,25 @@ describe("QR table links", () => {
     vi.unstubAllGlobals();
   });
 });
+
+describe("Imou signing", () => {
+  it("md5Hex matches RFC 1321 vectors", async () => {
+    const { md5Hex } = await import("@/core/utils/md5");
+    expect(md5Hex("")).toBe("d41d8cd98f00b204e9800998ecf8427e");
+    expect(md5Hex("abc")).toBe("900150983cd24fb0d6963f7d28e17f72");
+    expect(md5Hex("a".repeat(100))).toBe("36a92cc94a9e0fa21f625f8bfb007adf");
+  });
+
+  it("HMAC sign matches the worked example in the Imou docs", async () => {
+    const { imouSign } = await import("@/features/camera/imou/imouApi");
+    const sign = await imouSign("hmac", 1706511734, "f5a1ae2d-c09c-4d39-a744-83a5c2c653c2", "test123456789test123456789");
+    expect(sign).toBe("xjhCQBoJ9hRDsCjyDcHjtDNzRZ3ZJezcawsfWeiaoxU=");
+  });
+
+  it("pickFlvUrl prefers flvHD and finds nested URLs", async () => {
+    const { pickFlvUrl } = await import("@/features/camera/imou/imouApi");
+    expect(pickFlvUrl({ flv: "https://a/x.flv", flvHD: "https://a/hd.flv" })).toBe("https://a/hd.flv");
+    expect(pickFlvUrl({ streams: [{ url: "https://b/live.flv?x=1" }] })).toBe("https://b/live.flv?x=1");
+    expect(pickFlvUrl({ hls: "https://c/a.m3u8" })).toBeNull();
+  });
+});

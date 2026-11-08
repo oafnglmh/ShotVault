@@ -2,9 +2,10 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import { fileURLToPath, URL } from "node:url";
+import { imouDevProxy } from "./scripts/imouDevProxy";
 
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
+  plugins: [react(), tailwindcss(), imouDevProxy()],
   resolve: { alias: { "@": fileURLToPath(new URL("./src", import.meta.url)) } },
   // ffmpeg.wasm spins up its own module worker; pre-bundling breaks the worker URL.
   optimizeDeps: { exclude: ["@ffmpeg/ffmpeg", "@ffmpeg/util"] },
