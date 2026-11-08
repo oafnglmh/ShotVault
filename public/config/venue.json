@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "venueName": "Billiards Club",
-  "publicBaseUrl": "",
+  "venueName": "Minh Thiên Cafe & Billards",
+  "publicBaseUrl": "https://shotvault.onrender.com",
   "tables": [
     { "id": "TABLE_01", "name": "Bàn 01", "cameraId": "CAM_01", "active": true },
     { "id": "TABLE_02", "name": "Bàn 02", "cameraId": "CAM_02", "active": true },

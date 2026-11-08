@@ -1,0 +1,16 @@
+# Render Blueprint for the static site. Only applied when the service is managed as a Blueprint;
+# for a service created by hand, add the same rewrite and header in the Render dashboard.
+services:
+  - type: web
+    name: shotvault
+    runtime: static
+    buildCommand: npm ci && npm run build
+    staticPublishPath: ./dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    headers:
+      - path: /config/*
+        name: Cache-Control
+        value: no-cache
