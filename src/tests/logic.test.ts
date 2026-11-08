@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { parseVenueConfig, findSecretLeaks, ConfigError } from "@/core/config/venueSchema";
 import { DEFAULT_VENUE } from "@/core/config/defaultVenue";
 import { formatClock, parseClock, toApiDateTime, toEzopenStamp } from "@/core/utils/time";
@@ -147,5 +147,17 @@ describe("venue config", () => {
     const leaky = { ...DEFAULT_VENUE, venueName: "my appSecret is x" };
     expect(findSecretLeaks(leaky)).toContain("appsecret");
     expect(findSecretLeaks(DEFAULT_VENUE)).toEqual([]);
+  });
+});
+
+describe("QR table links", () => {
+  it("end with a slash and round-trip through the scanner parser", async () => {
+    vi.stubGlobal("window", { location: { origin: "https://shotvault.onrender.com" } });
+    const { tableUrl, parseTableFromScan } = await import("@/features/qr/qrService");
+    const url = tableUrl({ publicBaseUrl: "https://shotvault.onrender.com" } as Parameters<typeof tableUrl>[0], "TABLE_01");
+    expect(url).toBe("https://shotvault.onrender.com/play/TABLE_01/");
+    expect(parseTableFromScan(url)).toBe("TABLE_01");
+    expect(parseTableFromScan("https://shotvault.onrender.com/play/TABLE_01")).toBe("TABLE_01");
+    vi.unstubAllGlobals();
   });
 });

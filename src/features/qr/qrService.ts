@@ -2,10 +2,14 @@ import QRCode from "qrcode";
 import type { BilliardTable, VenueConfig } from "@/core/domain/types";
 import { ID_PATTERN } from "@/core/config/venueSchema";
 
-/** QR identifies a table — nothing more. It is not an access-control mechanism. */
+/**
+ * QR identifies a table — nothing more. It is not an access-control mechanism.
+ * The trailing slash makes static hosts serve the prebuilt play/<ID>/index.html directly;
+ * Render without a rewrite rule does not reliably resolve the slashless form.
+ */
 export function tableUrl(venue: VenueConfig, tableId: string): string {
   const base = venue.publicBaseUrl || window.location.origin;
-  return `${base}/play/${encodeURIComponent(tableId)}`;
+  return `${base}/play/${encodeURIComponent(tableId)}/`;
 }
 
 /** Extracts a table id from scanned text, only if it points at a /play/<ID> path. */
